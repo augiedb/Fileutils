@@ -8,12 +8,17 @@ defmodule FileutilsTest do
     assert 1 + 1 == 2
   end
 
+  # This one basically is repeating the test that System.tmp_dir()
+  # already has but I'm just testing Mix Text with it.
   test "Find temp directory to start with" do
-    assert is_binary F.get_temp_directory
+    assert is_binary F.get_temp_directory_host
+    assert F.get_temp_directory_host == "/tmp" ||
+           F.get_temp_directory_host == File.cwd()
   end
 
   test "Create a random directory name" do
-    tmp = F.create_dir_name 
+    tmp = F.get_temp_dir_name
+    IO.puts tmp
     assert is_binary tmp
     assert String.length(tmp) == 20
   end

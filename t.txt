@@ -1,0 +1,34 @@
+.char : u
+char : u
+char : b
+char : 
+char : h
+char : u
+char : 0
+char : 5
+char : h
+char : s
+char : b
+char : n
+char : e
+char : i
+char : l
+char : e
+tempuubhu05hsbneile
+
+
+  1) test Create a random directory name (FileutilsTest)
+     test/fileutils_test.exs:19
+     Assertion with == failed
+     code: String.length(tmp) == 20
+     lhs:  19
+     rhs:  20
+     stacktrace:
+       test/fileutils_test.exs:23
+
+.
+
+Finished in 0.1 seconds (0.1s on load, 0.01s on tests)
+3 tests, 1 failure
+
+Randomized with seed 282709
