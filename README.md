@@ -1,6 +1,15 @@
 # Fileutils
 
-**TODO: Add description**
+## Description:
+
+This module is intended to be a collection of utilities for dealing
+with folders and files in specific ways.
+
+__create_temp_directory__
+The first major component to be created is the one that will create
+and destroy temporary directories for you.  It based on Perl's 
+File::TempDir
+and was first hinted in my Core Elixir series here: [http://variousandsundry.com/cs/blog/2015/08/06/core-elixir-system-dot-tmp-dir-slash-0/](http://variousandsundry.com/cs/blog/2015/08/06/core-elixir-system-dot-tmp-dir-slash-0/)
 
 ## Installation
 
