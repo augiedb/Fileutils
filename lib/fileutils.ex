@@ -14,7 +14,7 @@ defmodule Fileutils do
 
   def get_temp_dir_name do
     :random.seed(:os.timestamp)
-    values = "abcedefghijklmnopqrstuvwxyz0123456789" |> String.split("") 
+    values = "abcedefghijklmnopqrstuvwxyz0123456789" |> String.split("", trim: true	) 
     "temp" <> create_random_string("", values, 16)
   end
 
@@ -28,7 +28,6 @@ defmodule Fileutils do
 
   def create_random_string(str, val, iteration) do
     char =  Enum.shuffle(val) |> Enum.take(1) |> List.to_string
-IO.puts "char : " <> char
     create_random_string(str <> char, val, iteration - 1)
   end
 
