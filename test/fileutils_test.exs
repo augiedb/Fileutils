@@ -23,4 +23,10 @@ defmodule FileutilsTest do
     assert String.length(tmp) == 20
   end
 
+  test "Check if a directory already exists or not" do
+    assert Fileutils.does_directory_already_exist?(System.cwd()) == true 
+    assert Fileutils.does_directory_already_exist?(tmp) == false
+  end
+
+
 end

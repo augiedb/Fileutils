@@ -1,7 +1,12 @@
 defmodule Fileutils do
 
   def create_temp_directory(dirname) do
-    File.mkdir(dirname)
+    tmp = get_full_tmp_dir_name
+    case does_directory_already_exist?(tmp) do
+      true  -> File.mkdir(dirname)
+      false -> create_temp_directory(dirname)
+    end
+
   end
 
   def destory_temp_directory(dirname) do
@@ -10,6 +15,14 @@ defmodule Fileutils do
 
   def get_full_tmp_dir_name do
     Path.join([get_temp_directory_host(), get_temp_dir_name()])
+
+  end
+
+  def does_directory_already_exist?(dirname) do
+    case File.stat(dirname) do
+      {:ok, _} -> true
+      _        -> false
+    end
   end
 
   def get_temp_dir_name do
