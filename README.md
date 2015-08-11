@@ -1,5 +1,10 @@
 # Fileutils
 
+## Warning:
+
+This module is in very early development. I have some ideas that will involve restructuring it completely, if I decide to pull on that trigger.  Also, naming is hard. I intend to get this thing functional before I rename things in a better way. It's just how I work.
+
+
 ## Description:
 
 This module is intended to be a collection of utilities for dealing
