@@ -8,12 +8,11 @@ defmodule FileutilsTest do
     assert 1 + 1 == 2
   end
 
-  # This one basically is repeating the test that System.tmp_dir()
+  # This one basically is repeating the test that System.tmp_dir
   # already has but I'm just testing Mix Text with it.
   test "Find temp directory to start with" do
     assert is_binary F.get_temp_directory_host
-    assert F.get_temp_directory_host == "/tmp" ||
-           F.get_temp_directory_host == File.cwd()
+    assert F.get_temp_directory_host == System.tmp_dir()
   end
 
   test "Create a random directory name" do
@@ -24,7 +23,8 @@ defmodule FileutilsTest do
   end
 
   test "Check if a directory already exists or not" do
-    assert Fileutils.does_directory_already_exist?(System.cwd()) == true 
+    tmp = F.get_temp_dir_name
+    assert Fileutils.does_directory_already_exist?(System.tmp_dir) == true 
     assert Fileutils.does_directory_already_exist?(tmp) == false
   end
 

@@ -9,7 +9,7 @@ defmodule Fileutils do
 
   end
 
-  def destory_temp_directory(dirname) do
+  def destroy_temp_directory(dirname) do
     File.rmdir(dirname)
   end
 
