@@ -1,21 +1,24 @@
 defmodule Fileutils do
 
-  def create_temp_directory(dirname) do
-    tmp = get_full_tmp_dir_name
-    case does_directory_already_exist?(tmp) do
-      true  -> File.mkdir(dirname)
-      false -> create_temp_directory(dirname)
+  def create_temp_directory do
+    new_dir_name = get_full_temp_dir_name
+    case does_directory_already_exist?(new_dir_name) do
+      false -> make_temp_dir(new_dir_name)
+      true  -> create_temp_directory
     end
+  end
 
+  def make_temp_dir(full_dir_path) do
+    File.mkdir(full_dir_path)
+    full_dir_path
   end
 
   def destroy_temp_directory(dirname) do
     File.rmdir(dirname)
   end
 
-  def get_full_tmp_dir_name do
-    Path.join([get_temp_directory_host(), get_temp_dir_name()])
-
+  def get_full_temp_dir_name do
+    Path.join([get_temp_directory_host(), create_temp_dir_name()])
   end
 
   def does_directory_already_exist?(dirname) do
@@ -25,7 +28,7 @@ defmodule Fileutils do
     end
   end
 
-  def get_temp_dir_name do
+  def create_temp_dir_name do
     :random.seed(:os.timestamp)
     values = "abcedefghijklmnopqrstuvwxyz0123456789" |> String.split("", trim: true	) 
     "temp" <> create_random_string("", values, 16)

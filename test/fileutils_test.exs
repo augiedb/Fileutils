@@ -16,16 +16,20 @@ defmodule FileutilsTest do
   end
 
   test "Create a random directory name" do
-    tmp = F.get_temp_dir_name
-    IO.puts tmp
+    tmp = F.create_temp_dir_name
     assert is_binary tmp
     assert String.length(tmp) == 20
   end
 
   test "Check if a directory already exists or not" do
-    tmp = F.get_temp_dir_name
-    assert Fileutils.does_directory_already_exist?(System.tmp_dir) == true 
-    assert Fileutils.does_directory_already_exist?(tmp) == false
+    tmp = F.get_full_temp_dir_name
+    assert F.does_directory_already_exist?(System.tmp_dir) == true 
+    assert F.does_directory_already_exist?(tmp) == false
+  end
+
+  test "Make a new directory" do
+    subdir = F.create_temp_directory
+    assert F.does_directory_already_exist?(subdir)
   end
 
 
