@@ -14,7 +14,10 @@ defmodule Fileutils do
   end
 
   def destroy_temp_directory(dirname) do
-    File.rmdir(dirname)
+    case File.rmdir(dirname) do
+      :ok -> true
+      {:error, msg} -> msg 
+    end
   end
 
   def get_full_temp_dir_name do

@@ -30,7 +30,12 @@ defmodule FileutilsTest do
   test "Make a new directory" do
     subdir = F.create_temp_directory
     assert F.does_directory_already_exist?(subdir)
+    assert F.destroy_temp_directory("Make_up_some_stuff_bad_dir") == :enoent
+    assert F.destroy_temp_directory(subdir)
+    assert F.does_directory_already_exist?(subdir) == false
   end
+
+
 
 
 end
