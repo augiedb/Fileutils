@@ -1,6 +1,7 @@
 defmodule Fileutils do
+
 @docmodule"""
-    This mocdule contains more functions to help with managing
+    This module contains more functions to help with managing
     file system things.  Namly, files and directories.
 
     Fileutils.create_temp_file(directory)
@@ -34,27 +35,28 @@ def destroy_temp_file(file) do
 end
 
 def get_full_temp_file_name(dirname) do
-  file_idea = Path.join([dirname, create_temp_file_name()])
+  file_idea = Path.join([dirname, create_temp_name("tempf", 16)])
   case already_exists?(file_idea) do
     true  -> get_full_temp_file_name(dirname)
     false -> file_idea
   end
 end
 
-def already_exists?(file) do
-  case File.stat(file) do
+#-----------------------------------------------#
+
+def already_exists?(filesystem_item) do
+  case File.stat(filesystem_item) do
     {:ok, _} -> true
     _        -> false
   end
 end
 
-def create_temp_file_name do
+def create_temp_name(prefix, no_of_chars) do
   :random.seed(:os.timestamp)
   values = "abcedefghijklmnopqrstuvwxyz0123456789" |> String.split("", trim: true	) 
-  "tempf" <> create_random_string("", values, 16)
+  prefix <> create_random_string("", values, no_of_chars)
 end
 
-#-----------------------------------------------#
  
 @doc """
   Returns the full path of a new temporary directory
@@ -83,25 +85,13 @@ def destroy_temp_directory(dirname) do
   end
 end
 
+
 def get_full_temp_dir_name do
-  dir_idea = Path.join([get_temp_directory_host(), create_temp_dir_name()])
-  case does_directory_already_exist?(dir_idea) do
+  dir_idea = Path.join([get_temp_directory_host(), create_temp_name("tempd", 16)])
+  case already_exists?(dir_idea) do
     true  -> get_full_temp_dir_name
     false -> dir_idea
  end
-end
-
-def does_directory_already_exist?(dirname) do
-  case File.stat(dirname) do
-    {:ok, _} -> true
-    _        -> false
-  end
-end
-
-def create_temp_dir_name do
-  :random.seed(:os.timestamp)
-  values = "abcedefghijklmnopqrstuvwxyz0123456789" |> String.split("", trim: true	) 
-  "tempd" <> create_random_string("", values, 16)
 end
 
 def get_temp_directory_host do
