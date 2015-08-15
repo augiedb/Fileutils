@@ -1,11 +1,7 @@
 defmodule Fileutils do
 
   def create_temp_directory do
-    new_dir_name = get_full_temp_dir_name
-    case does_directory_already_exist?(new_dir_name) do
-      false -> make_temp_dir(new_dir_name)
-      true  -> create_temp_directory
-    end
+    get_full_temp_dir_name |> make_temp_dir
   end
 
   def make_temp_dir(full_dir_path) do
@@ -21,7 +17,12 @@ defmodule Fileutils do
   end
 
   def get_full_temp_dir_name do
-    Path.join([get_temp_directory_host(), create_temp_dir_name()])
+    dir_idea = Path.join([get_temp_directory_host(), create_temp_dir_name()])
+    case does_directory_already_exist?(dir_idea) do
+      true  -> get_full_temp_dir_name
+      false -> dir_idea
+   end
+
   end
 
   def does_directory_already_exist?(dirname) do
