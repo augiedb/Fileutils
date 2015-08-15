@@ -1,5 +1,37 @@
 defmodule Fileutils do
 
+  def create_temp_file(dirname \\ ".") do
+    dirname |> get_full_temp_file_name |> make_temp_file
+  end
+
+  def make_temp_file(file) do
+    File.touch(file)
+    file
+  end
+
+  def get_full_temp_file_name(dirname) do
+    file_idea = Path.join([dirname, create_temp_file_name()])
+    case already_exists?(file_idea) do
+      true  -> get_full_temp_file_name(dirname)
+      false -> file_idea
+    end
+  end
+
+  def already_exists?(file) do
+    case File.stat(file) do
+      {:ok, _} -> true
+      _        -> false
+    end
+  end
+
+  def create_temp_file_name do
+    :random.seed(:os.timestamp)
+    values = "abcedefghijklmnopqrstuvwxyz0123456789" |> String.split("", trim: true	) 
+    "tempf" <> create_random_string("", values, 16)
+  end
+
+ #-----------------------------------------------#
+ 
   def create_temp_directory do
     get_full_temp_dir_name |> make_temp_dir
   end
@@ -35,7 +67,7 @@ defmodule Fileutils do
   def create_temp_dir_name do
     :random.seed(:os.timestamp)
     values = "abcedefghijklmnopqrstuvwxyz0123456789" |> String.split("", trim: true	) 
-    "temp" <> create_random_string("", values, 16)
+    "tempd" <> create_random_string("", values, 16)
   end
 
   def get_temp_directory_host do

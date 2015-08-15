@@ -18,7 +18,7 @@ defmodule FileutilsTest do
   test "Create a random directory name" do
     tmp = F.create_temp_dir_name
     assert is_binary tmp
-    assert String.length(tmp) == 20
+    assert String.length(tmp) == 21
   end
 
   test "Check if a directory already exists or not" do
@@ -33,6 +33,11 @@ defmodule FileutilsTest do
     assert F.destroy_temp_directory("Make_up_some_stuff_bad_dir") == :enoent
     assert F.destroy_temp_directory(subdir)
     assert F.does_directory_already_exist?(subdir) == false
+  end
+
+  test "Create temp file" do
+    testfile = F.create_temp_file
+    assert F.already_exists?(testfile)
   end
 
 
