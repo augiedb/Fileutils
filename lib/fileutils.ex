@@ -47,7 +47,7 @@ defmodule Fileutils do
   end
 
   def create_random_string(str, val, iteration) do
-    char =  Enum.shuffle(val) |> Enum.take(1) |> List.to_string
+    char = Enum.shuffle(val) |> Enum.take(1) |> List.to_string
     create_random_string(str <> char, val, iteration - 1)
   end
 
