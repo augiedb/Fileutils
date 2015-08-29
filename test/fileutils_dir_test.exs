@@ -25,7 +25,7 @@ defmodule FileutilsDir_Test do
   end
 
   test "Make a new directory" do
-    subdir = F.create_temp
+    {:ok, subdir} = F.create_temp
     assert U.already_exists?(subdir)
     assert {:error, :enoent} = F.destroy_temp("Make_up_some_stuff_bad_dir")
     assert {:ok, _} = F.destroy_temp(subdir)
