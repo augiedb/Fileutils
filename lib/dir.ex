@@ -14,18 +14,18 @@ alias Fileutils.Utils, as: U
   #=> /tmp/tempdfgredstyu85juy1deng9
 
 """ 
-@spec create_temp_directory() :: binary 
+@spec create_temp() :: binary 
 
-def create_temp_directory do
-  get_full_temp_dir_name |> make_temp_dir
+def create_temp do
+  get_full_temp_dir_name |> make_temp
 end
 
-def make_temp_dir(full_dir_path) do
+def make_temp(full_dir_path) do
   File.mkdir(full_dir_path)
   full_dir_path
 end
 
-def destroy_temp_directory(dirname) do
+def destroy_temp(dirname) do
   case File.rmdir(dirname) do
     :ok           -> {:ok, dirname}
     {:error, msg} -> {:error, msg}

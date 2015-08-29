@@ -15,9 +15,9 @@ defmodule FileutilsFile_Test do
   end
 
   test "Create temp file" do
-    {:ok, testfile} = F.create_temp_file
+    {:ok, testfile} = F.create_temp
     assert U.already_exists?(testfile) == true
-    assert {:ok, testfile} == F.destroy_temp_file(testfile)
+    assert {:ok, testfile} == F.destroy_temp(testfile)
     assert false ==  U.already_exists?("/tmp/junkityjunkjunk.txt")
     assert U.already_exists?(testfile) == false 
 

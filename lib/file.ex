@@ -10,23 +10,26 @@ defmodule Fileutils.File do
 @doc """
   Returns the full path and file name of a requested new temp file.
 
+  Optionally, you can include a directory name to put it in.  If you
+  leave that blank, the module will default you to the current directory.
+
   ## Examples
 
   Fileutils.Utils.create_temp_file("\tmp")
   #=> /tmp/tempfgredstyu85juy1deng9
 
 """ 
-@spec create_temp_file(Path.t) :: binary 
-def create_temp_file(dirname \\ ".") do
-  dirname |> get_full_temp_file_name |> make_temp_file
+@spec create_temp(Path.t) :: binary 
+def create_temp(dirname \\ ".") do
+  dirname |> get_full_temp_file_name |> make_temp
 end
 
-def make_temp_file(file) do
+def make_temp(file) do
   File.touch(file)
   {:ok, file}
 end
 
-def destroy_temp_file(file) do
+def destroy_temp(file) do
   case File.rm(file) do
     :ok           -> {:ok, file}
     {:error, msg} -> {:error, msg} 
