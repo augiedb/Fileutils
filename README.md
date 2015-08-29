@@ -29,3 +29,9 @@ and was first hinted in my Core Elixir series here: [http://variousandsundry.com
         def application do
           [applications: [:fileutils]]
         end
+
+
+## Update:
+
+Now broken apart into two modules (plus a third utility one to support it.)  You get Fileutils.Dir and Filutils.File now.  Eventually, I need to rename this whole thing to something like FSUtils ("File System Utils").  I'll get there.
+
