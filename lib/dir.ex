@@ -17,7 +17,7 @@ defmodule Fileutils.Dir do
   @spec create_temp() :: {:ok, binary} 
 
   def create_temp do
-    get_full_temp_dir_name |> make_temp
+    get_full_temp_dir_name |> do_create_temp
   end
 
 
@@ -33,7 +33,7 @@ defmodule Fileutils.Dir do
     end
   end
  
-  def make_temp(full_dir_path) do
+  def do_create_temp(full_dir_path) do
     File.mkdir(full_dir_path)
     case U.already_exists?(full_dir_path) do
       true   -> {:ok, full_dir_path}

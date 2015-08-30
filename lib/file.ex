@@ -26,7 +26,7 @@ defmodule Fileutils.File do
   def create_temp(dirname \\ ".") do
     dirname 
     |> get_full_temp_file_name 
-    |> make_temp
+    |> do_create_temp
   end
 
   def get_full_temp_file_name(dirname) do
@@ -37,7 +37,7 @@ defmodule Fileutils.File do
     end
   end
 
-  def make_temp(file) do
+  def do_create_temp(file) do
     File.touch(file)
     {:ok, file}
   end
