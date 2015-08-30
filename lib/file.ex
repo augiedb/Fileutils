@@ -1,5 +1,7 @@
 defmodule Fileutils.File do
 
+  alias Fileutils.Utils, as: U
+
   @docmodule"""
       This module contains more functions to help with managing
       file system things.  Namly, files and directories.
@@ -15,7 +17,7 @@ defmodule Fileutils.File do
 
     ## Examples
 
-    Fileutils.Utils.create_temp_file("\tmp")
+    Fileutils.File.create_temp("\tmp")
     #=> /tmp/tempfgredstyu85juy1deng9
 
   """ 
@@ -28,8 +30,8 @@ defmodule Fileutils.File do
   end
 
   def get_full_temp_file_name(dirname) do
-    file_idea = Path.join([dirname, Fileutils.Utils.create_temp_name("tempf", 16)])
-    case Fileutils.Utils.already_exists?(file_idea) do
+    file_idea = Path.join([dirname, U.create_temp_name("tempf", 16)])
+    case U.already_exists?(file_idea) do
       true  -> get_full_temp_file_name(dirname)
       false -> file_idea
     end
