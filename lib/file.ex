@@ -22,7 +22,9 @@ defmodule Fileutils.File do
   @spec create_temp(Path.t) :: {:ok, binary}
 
   def create_temp(dirname \\ ".") do
-    dirname |> get_full_temp_file_name |> make_temp
+    dirname 
+    |> get_full_temp_file_name 
+    |> make_temp
   end
 
   def get_full_temp_file_name(dirname) do
@@ -51,3 +53,4 @@ defmodule Fileutils.File do
   end
 
 end
+
