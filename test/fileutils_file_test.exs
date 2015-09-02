@@ -20,7 +20,14 @@ defmodule FileutilsFile_Test do
     assert {:ok, testfile} == F.destroy_temp(testfile)
     assert false ==  U.already_exists?("/tmp/junkityjunkjunk.txt")
     assert U.already_exists?(testfile) == false 
+  end
 
+  test "Use regexes in ls/2" do
+    {:ok, testfile} = F.create_temp(".")
+    assert U.already_exists?(testfile) == true
+    assert {:ok, filelist} = F.ls(".", ~r/^tempf/)
+    assert length(filelist) == 1
+    F.destroy_temp(testfile)
   end
 
 end

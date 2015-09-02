@@ -1,6 +1,7 @@
 defmodule Fileutils.File do
 
   alias Fileutils.Utils, as: U
+  alias :file,           as: F
 
   @docmodule"""
       This module contains more functions to help with managing
@@ -8,7 +9,35 @@ defmodule Fileutils.File do
 
       Fileutils.File.create_temp(directory)
   """
-     
+  @doc """
+  Returns list of files in the given directory that match the given regex.
+
+  It returns `{ :ok, [files] }` in case of success,
+  `{ :error, reason }` otherwise.
+  """
+
+  def ls(path, search) do
+    case F.list_dir(path) do
+      { :ok, file_list } -> 
+        { :ok, Enum.filter(file_list, fn(x) -> Regex.match?(search, to_string(x)) end ) }
+      { :error, _} = error ->
+        error
+    end 
+  end
+
+  @doc """
+  The same as `ls/2` but raises `File.Error`
+  in case of an error.
+  """
+  def ls!(dir, search) do
+    case File.ls(dir) do
+      { :ok, value } -> 
+        value |> Enum.filter(fn(x) -> Regex.match?(search, to_string(x)) end )
+      { :error, reason } ->
+        raise File.Error, reason: reason, action: "list directory", path: to_string(dir)
+    end
+  end
+
   @doc """
     Returns the full path and file name of a requested new temp file.
 
